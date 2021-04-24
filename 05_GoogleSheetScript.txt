@@ -1,0 +1,3220 @@
+var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1ZhwVe_Xrd1eqR-ZmvfBvCAjgCoaiEUsDZVeHm0RwWdo/edit");
+var Place = ss.getSheetByName("Place");
+var Product = ss.getSheetByName("Product");
+
+function doPost(e){
+  var data = JSON.parse(e.postData.contents);
+  var userMsg = data.originalDetectIntentRequest.payload.data.message.text;
+  var PlaceV = Place.getRange(2, 1, Place.getLastRow(),Place.getLastColumn()).getValues();
+  var ProductV = Product.getRange(2, 1, Product.getLastRow(),Product.getLastColumn()).getValues();
+  var PlaceName=[];
+  var PlaceAmphur=[];
+  var LinkContent=[];
+  var LinkPicture=[];
+  var PlaceLatitude=[];
+  var PlaceLongitude=[];
+  var PlacePos=[];
+  var PlaceMore=[];
+  var Supplier=[];
+  
+  // ## LOOP MATCHING
+   switch(userMsg){
+    case "เรียนรู้วิถีชุมชน": // ## Community
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Community"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "เรียนรู้วิถีชุมชน",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "ชมสวนและฟาร์ม": // ## Agriculture
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Agriculture"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "ชมสวนและฟาร์ม",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "เที่ยวสวนสนุก": // ## Themepark
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Themepark"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "เที่ยวสวนสนุก",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "พักผ่อนชมธรรมชาติ": // ## Nature
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Nature"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "พักผ่อนชมธรรมชาติ",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "ชมโบราณสถาน": // ## History
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "History"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "ชมโบราณสถาน",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "ชมพิพิธภัณฑ์": // ## Museum
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Museum"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "ชมพิพิธภัณฑ์",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "ชมวัดวาอารามไหว้พระ": // ## Buddha
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,11).getValue() == "Buddha"){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "ชมวัดวาอารามไหว้พระ",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+       
+    case "อำเภอเมืองชัยนาท": // ## AMPHUR01
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอเมืองชัยนาท" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอเมืองชัยนาท",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอวัดสิงห์": // ## AMPHUR02
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอวัดสิงห์" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอวัดสิงห์",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอสรรคบุรี": // ## AMPHUR03
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอสรรคบุรี" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอสรรคบุรี",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอหันคา": // ## AMPHUR04
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอหันคา" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอหันคา",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอสรรพยา":  // ## AMPHUR05
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอสรรพยา" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอสรรพยา",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอมโนรมย์": // ## AMPHUR06
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอมโนรมย์" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอมโนรมย์",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอหนองมะโมง": // ## AMPHUR07
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอหนองมะโมง" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอหนองมะโมง",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    case "อำเภอเนินขาม": // ## AMPHUR08
+      var j = 1;
+      for(var i = 0;i<PlaceV.length; i++){
+        if(Place.getRange(i+2,2).getValue() == "อำเภอเนินขาม" && Place.getRange(i+2,12).getValue() == 1){
+          PlaceName[j] = Place.getRange(i+2,1).getValue();
+          PlaceAmphur[j] = Place.getRange(i+2,2).getValue();
+          LinkContent[j] = Place.getRange(i+2,3).getValue();
+          LinkPicture[j] = Place.getRange(i+2,4).getValue();
+          PlaceLatitude[j] = Place.getRange(i+2,5).getValue();
+          PlaceLongitude[j] = Place.getRange(i+2,6).getValue();
+          PlacePos[j] = PlaceName[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+          PlaceMore[j] = "(more)"+PlaceName[j];
+          j++;
+        }
+      }
+      var n1 = Math.floor(Math.random() * (j-2)) + 1;
+      var n2 = Math.floor(Math.random() * (j-2)) + 1;
+      var n3 = Math.floor(Math.random() * (j-2)) + 1;
+      var n4 = Math.floor(Math.random() * (j-2)) + 1;
+      var n5 = Math.floor(Math.random() * (j-2)) + 1;
+      var result = { 
+        "fulfillmentMessages":[
+         {
+           "platform": "line",
+           "type": 4,
+           "payload" : {        
+             "line": {
+               "type": "template",
+               "altText": "อำเภอเนินขาม",
+               "template": {
+                 "type": "carousel",
+                 "columns": [
+                   {
+                     "thumbnailImageUrl": LinkPicture[n1],
+                     "imageBackgroundColor": "#FFFFFF",
+                     "title": PlaceName[n1],
+                     "text": PlaceAmphur[n1],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n1]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n1]
+                       },
+                       {
+                         "type": "message",
+                         "label": "สถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n1]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n2],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n2],
+                     "text": PlaceAmphur[n2],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n2]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n2]
+                       },
+                       {
+                         "type": "message",
+                         "label": "สถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n2]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n3],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n3],
+                     "text": PlaceAmphur[n3],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n3]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n3]
+                       },
+                       {
+                         "type": "message",
+                         "label": "สถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n3]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n4],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n4],
+                     "text": PlaceAmphur[n4],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n4]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n4]
+                       },
+                       {
+                         "type": "message",
+                         "label": "สถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n4]
+                       }
+                     ]
+                   },
+                   {
+                     "thumbnailImageUrl": LinkPicture[n5],
+                     "imageBackgroundColor": "#000000",
+                     "title": PlaceName[n5],
+                     "text": PlaceAmphur[n5],
+                     "defaultAction": {
+                       "type": "message",
+                       "label": "พิกัดสถานที่",
+                       "text": PlacePos[n5]
+                     },
+                     "actions": [
+                       {
+                         "type": "message",
+                         "label": "พิกัดสถานที่",
+                         "text": PlacePos[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ข้อมูลเพิ่มเติม",
+                         "text": PlaceMore[n5]
+                       },
+                       {
+                         "type": "message",
+                         "label": "ดูสถานที่อื่นเพิ่มเติม",
+                         "text": PlaceAmphur[n5]
+                       }
+                     ]
+                   }
+                 ],
+                  "imageAspectRatio": "rectangle",
+                  "imageSize": "cover"
+               }
+             }
+           }
+         }
+        ]
+      }
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+      break;
+      
+    default: // Default
+      var detail = userMsg.substring(0,6);
+      var product = userMsg.substring(0,9);
+      if(detail != "(more)" && product != "(product)"){
+      for(var i = 0;i<PlaceV.length; i++){
+        if(PlaceV[i][0] == userMsg ){
+          i=i+2;
+          var PlaceName1 = Place.getRange(i,1).getValue();
+          var PlaceAmphur1 = Place.getRange(i,2).getValue();
+          var LinkContent1 = Place.getRange(i,3).getValue();
+          var LinkPicture1 = Place.getRange(i,4).getValue();
+          var PlaceLatitude1 = Place.getRange(i,5).getValue();
+          var PlaceLongitude1 = Place.getRange(i,6).getValue();
+          var PlacePos1 = PlaceName1+"("+PlaceLatitude1+", "+PlaceLongitude1+")";
+          var PlaceMore1 = "(more)"+PlaceName1;
+          var PlaceProduct1 = "(product)"+PlaceAmphur1;
+          
+          var result = { 
+            "fulfillmentMessages":[
+              {
+                "platform": "line",
+                "type": 4,
+                "payload" : {        
+                  "line": {
+                    "type": "template",
+                    "altText": PlaceName1,
+                    "template": {
+                      "type": "carousel",
+                      "columns": [
+                        {
+                          "thumbnailImageUrl": LinkPicture1,
+                          "imageBackgroundColor": "#000000",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ข้อมูลเพิ่มเติม",
+                              "text": PlaceMore1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            }
+                          ]
+                        }
+                      ],
+                      "imageAspectRatio": "rectangle",
+                      "imageSize": "cover"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+          var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+          return replyJSON;
+          break;
+        }
+      }
+      }
+       
+      if(detail == "(more)"){
+      userMsg = userMsg.substring(6,userMsg.length);
+      for(var i = 0;i<PlaceV.length; i++){
+        if(PlaceV[i][0] == userMsg){
+          i=i+2;
+          var PlaceName1 = Place.getRange(i,1).getValue();
+          var PlaceAmphur1 = Place.getRange(i,2).getValue();
+          var LinkContent1 = Place.getRange(i,3).getValue();
+          var LinkPicture1 = Place.getRange(i,4).getValue();
+          var PlaceLatitude1 = Place.getRange(i,5).getValue();
+          var PlaceLongitude1 = Place.getRange(i,6).getValue();
+          var LinkPicture2 = Place.getRange(i,7).getValue();
+          var LinkPicture3 = Place.getRange(i,8).getValue();
+          var LinkPicture4 = Place.getRange(i,9).getValue();
+          var LinkPicture5 = Place.getRange(i,10).getValue();
+          var PlacePos1 = PlaceName1+"("+PlaceLatitude1+", "+PlaceLongitude1+")";
+          var PlaceMore1 = "(more)"+PlaceName1;
+          var PlaceProduct1 = "(product)"+PlaceAmphur1;
+          
+          var result = { 
+            "fulfillmentMessages":[
+              {
+                "platform": "line",
+                "type": 4,
+                "payload" : {        
+                  "line": {
+                    "type": "template",
+                    "altText": "เพิ่มเติมเกี่ยวกับสถานที่",
+                    "template": {
+                      "type": "carousel",
+                      "columns": [
+                        {
+                          "thumbnailImageUrl": LinkPicture1,
+                          "imageBackgroundColor": "#FFFFFF",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ดูสถานที่อื่นเพิ่มเติม",
+                              "text": PlaceAmphur1
+                            }
+                          ]
+                        },
+                        {
+                          "thumbnailImageUrl": LinkPicture2,
+                          "imageBackgroundColor": "#000000",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ดูสถานที่อื่นเพิ่มเติม",
+                              "text": PlaceAmphur1
+                            }
+                          ]
+                        },
+                        {
+                          "thumbnailImageUrl": LinkPicture3,
+                          "imageBackgroundColor": "#000000",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ดูสถานที่อื่นเพิ่มเติม",
+                              "text": PlaceAmphur1
+                            }
+                          ]
+                        },
+                        {
+                          "thumbnailImageUrl": LinkPicture4,
+                          "imageBackgroundColor": "#000000",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ดูสถานที่อื่นเพิ่มเติม",
+                              "text": PlaceAmphur1
+                            }
+                          ]
+                        },
+                        {
+                          "thumbnailImageUrl": LinkPicture5,
+                          "imageBackgroundColor": "#000000",
+                          "title": PlaceName1,
+                          "text": PlaceAmphur1,
+                          "defaultAction": {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos1
+                          },
+                          "actions": [
+                            {
+                              "type": "message",
+                              "label": "พิกัดสถานที่",
+                              "text": PlacePos1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ผลิตภัณฑ์ชุมชน",
+                              "text": PlaceProduct1
+                            },
+                            {
+                              "type": "message",
+                              "label": "ดูสถานที่อื่นเพิ่มเติม",
+                              "text": PlaceAmphur1
+                            }
+                          ]
+                        }
+                      ],
+                      "imageAspectRatio": "rectangle",
+                      "imageSize": "cover"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+          var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+          return replyJSON;
+          break;
+        }
+      }        
+      }
+       
+      if(product == "(product)"){
+        userMsg = userMsg.substring(9,userMsg.length);
+        var j = 1;
+        for(var i = 0;i<ProductV.length; i++){
+          if(Product.getRange(i+2,3).getValue() == userMsg){
+            PlaceName[j] = Product.getRange(i+2,1).getValue();
+            Supplier[j] = Product.getRange(i+2,2).getValue();
+            PlaceAmphur[j] = Product.getRange(i+2,3).getValue();
+            LinkContent[j] = Product.getRange(i+2,4).getValue();
+            LinkPicture[j] = Product.getRange(i+2,5).getValue();
+            PlaceLatitude[j] = Product.getRange(i+2,6).getValue();
+            PlaceLongitude[j] = Product.getRange(i+2,7).getValue();
+            PlacePos[j] = Supplier[j]+"("+PlaceLatitude[j]+", "+PlaceLongitude[j]+")";
+            PlaceMore[j] = "(product)"+PlaceAmphur[j];
+            j++;
+          }
+        }
+        var n1 = Math.floor(Math.random() * (j-2)) + 1;
+        var n2 = Math.floor(Math.random() * (j-2)) + 1;
+        var n3 = Math.floor(Math.random() * (j-2)) + 1;
+        var n4 = Math.floor(Math.random() * (j-2)) + 1;
+        var n5 = Math.floor(Math.random() * (j-2)) + 1;
+        var result = { 
+          "fulfillmentMessages":[
+            {
+              "platform": "line",
+              "type": 4,
+              "payload" : {        
+                "line": {
+                  "type": "template",
+                  "altText": "อำเภอเนินขาม",
+                  "template": {
+                    "type": "carousel",
+                    "columns": [
+                      {
+                        "thumbnailImageUrl": LinkPicture[n1],
+                        "imageBackgroundColor": "#FFFFFF",
+                        "title": PlaceName[n1],
+                        "text": Supplier[n1],
+                        "defaultAction": {
+                          "type": "message",
+                          "label": "พิกัดสถานที่",
+                          "text": PlacePos[n1]
+                        },
+                        "actions": [
+                          {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos[n1]
+                          },
+                          {
+                            "type": "message",
+                            "label": "ผลิตภัณฑ์อื่น",
+                            "text": PlaceMore[n1]
+                          }
+                        ]
+                      },
+                      {
+                        "thumbnailImageUrl": LinkPicture[n2],
+                        "imageBackgroundColor": "#000000",
+                        "title": PlaceName[n2],
+                        "text": Supplier[n2],
+                        "defaultAction": {
+                          "type": "message",
+                          "label": "พิกัดสถานที่",
+                          "text": PlacePos[n2]
+                        },
+                        "actions": [
+                          {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos[n2]
+                          },
+                          {
+                            "type": "message",
+                            "label": "ผลิตภัณฑ์อื่น",
+                            "text": PlaceMore[n2]
+                          }
+                        ]
+                      },
+                      {
+                        "thumbnailImageUrl": LinkPicture[n3],
+                        "imageBackgroundColor": "#000000",
+                        "title": PlaceName[n3],
+                        "text": Supplier[n3],
+                        "defaultAction": {
+                          "type": "message",
+                          "label": "พิกัดสถานที่",
+                          "text": PlacePos[n3]
+                        },
+                        "actions": [
+                          {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos[n3]
+                          },
+                          {
+                            "type": "message",
+                            "label": "ผลิตภัณฑ์อื่น",
+                            "text": PlaceMore[n3]
+                          }
+                        ]
+                      },
+                      {
+                        "thumbnailImageUrl": LinkPicture[n4],
+                        "imageBackgroundColor": "#000000",
+                        "title": PlaceName[n4],
+                        "text": Supplier[n4],
+                        "defaultAction": {
+                          "type": "message",
+                          "label": "พิกัดสถานที่",
+                          "text": PlacePos[n4]
+                        },
+                        "actions": [
+                          {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos[n4]
+                          },
+                          {
+                            "type": "message",
+                            "label": "ผลิตภัณฑ์อื่น",
+                            "text": PlaceMore[n4]
+                          }
+                        ]
+                      },
+                      {
+                        "thumbnailImageUrl": LinkPicture[n5],
+                        "imageBackgroundColor": "#000000",
+                        "title": PlaceName[n5],
+                        "text": Supplier[n5],
+                        "defaultAction": {
+                          "type": "message",
+                          "label": "พิกัดสถานที่",
+                          "text": PlacePos[n5]
+                        },
+                        "actions": [
+                          {
+                            "type": "message",
+                            "label": "พิกัดสถานที่",
+                            "text": PlacePos[n5]
+                          },
+                          {
+                            "type": "message",
+                            "label": "ผลิตภัณฑ์อื่น",
+                            "text": PlaceMore[n5]
+                          }
+                        ]
+                      }
+                    ],
+                    "imageAspectRatio": "rectangle",
+                    "imageSize": "cover"
+                  }
+                }
+              }
+            }
+          ]
+        }
+        var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+        return replyJSON;
+        break;       
+      }
+  } // End Switc
+} // End Function

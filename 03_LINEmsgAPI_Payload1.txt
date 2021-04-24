@@ -1,0 +1,9 @@
+{
+  "line": {
+    "type": "location",
+    "latitude": "$number",
+    "address": "$PlaceBuddha",
+    "longitude": "$number1",
+    "title": "$PlaceBuddha"
+  }
+}

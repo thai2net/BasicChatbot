@@ -1,0 +1,18 @@
+{
+  "line": {
+    "type": "template",
+    "altText": "$PlaceBuddha[0]",
+    "template": {
+      "type": "buttons",
+      "text": "อาจจะเป็นสิ่งที่ท่านกำลังมองหา",
+      "title": "$PlaceBuddha[0]",
+      "actions": [
+        {
+          "type": "message",
+          "text": "$PlaceBuddha[0]",
+          "label": "ดูข้อมูล"
+        }
+      ]
+    }
+  }
+}
